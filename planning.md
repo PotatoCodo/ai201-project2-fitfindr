@@ -90,7 +90,7 @@ Return a descriptive error message, not an exception or crash.
 
 **How does your agent decide which tool to call next?**
 <!-- Describe the logic your planning loop uses. What does it look at? What conditions change its behavior? How does it know when it's done? -->
-It will use tools 1, 2, then 3 sequentially, only moving on to the next tool once the previous tool has finished.  There should also be a system prompt that says to do something different if an "error" has been returned as specified in the spec (e.g., if tool 1 returns with an empty string, tell the agesnt to ay "There are no matches for this item :(".
+It will use tools 1, 2, then 3 sequentially, only moving on to the next tool once the previous tool has finished.  There should also be a system prompt that says to do something different if an "error" has been returned as specified in the spec (e.g., if tool 1 returns with an empty string, tell the agent to say "There are no matches for this item :(".
 
 ---
 
@@ -98,6 +98,7 @@ It will use tools 1, 2, then 3 sequentially, only moving on to the next tool onc
 
 **How does information from one tool get passed to the next?**
 <!-- Describe how your agent stores and accesses state within a session. What data is tracked? How is it passed between tool calls? -->
+The agent will be asked to remember it and will be asked to use remembered state as input into the next tool.
 
 ---
 
@@ -140,7 +141,7 @@ For each tool, describe the specific failure mode you're handling and what the a
      before trusting it" is a plan. -->
 
 **Milestone 3 — Individual tool implementations:**
-
+Claude is given tool specs, arguments, and what they mean.  Then asked to implement it.  Also ask Claude to generate a test file (likely using pytest) that tests these tools individually, including failure cases.  Test using this test document and refactor/iterate until each tool reaches the desired spec.
 
 **Milestone 4 — Planning loop and state management:**
 
