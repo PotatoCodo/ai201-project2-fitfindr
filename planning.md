@@ -106,7 +106,7 @@ For each tool, describe the specific failure mode you're handling and what the a
 
 | Tool | Failure mode | Agent response |
 |------|-------------|----------------|
-| search_listings | No results match the query | |  
+| search_listings | No results match the query | |  njnk
 | suggest_outfit | Wardrobe is empty | |
 | create_fit_card | Outfit input is missing or incomplete | |
 
