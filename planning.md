@@ -55,7 +55,7 @@ A non-empty string with outfit suggestions given by the LLM.
 
 **What happens if it fails or returns nothing:**
 <!-- What should the agent do if the wardrobe is empty or no outfit can be suggested? -->
-If the wardrobe is empty, offer general styling advice for the item.  Call the LLM to provide general styling advice for the given item instead.
+If the wardrobe is empty, offer general styling advice for the item.  Tell the LLM (with a string) to provide general styling advice for the given item instead.
 
 ---
 
@@ -84,12 +84,13 @@ Return a descriptive error message, not an exception or crash.
 
 <!-- Copy the block above for any tools beyond the required three -->
 
----
+--- 
 
 ## Planning Loop
 
 **How does your agent decide which tool to call next?**
 <!-- Describe the logic your planning loop uses. What does it look at? What conditions change its behavior? How does it know when it's done? -->
+It will use tools 1, 2, then 3 sequentially, only moving on to the next tool once the previous tool has finished.  There should also be a system prompt that says to do something different if an "error" has been returned as specified in the spec (e.g., if tool 1 returns with an empty string, tell the agesnt to ay "There are no matches for this item :(".
 
 ---
 
@@ -106,9 +107,9 @@ For each tool, describe the specific failure mode you're handling and what the a
 
 | Tool | Failure mode | Agent response |
 |------|-------------|----------------|
-| search_listings | No results match the query | |  njnk
-| suggest_outfit | Wardrobe is empty | |
-| create_fit_card | Outfit input is missing or incomplete | |
+| search_listings | No results match the query | Say "There are no matches for this item :(" | 
+| suggest_outfit | Wardrobe is empty | Provide general styling advice for the given item (new item) |
+| create_fit_card | Outfit input is missing or incomplete | Say that the LLM outfit input is missing/incomplete |
 
 ---
 
@@ -139,6 +140,7 @@ For each tool, describe the specific failure mode you're handling and what the a
      before trusting it" is a plan. -->
 
 **Milestone 3 — Individual tool implementations:**
+
 
 **Milestone 4 — Planning loop and state management:**
 
