@@ -155,12 +155,16 @@ Write out what a full user interaction looks like from start to finish — tool 
 
 **Step 1:**
 <!-- What does the agent do first? Which tool is called? With what input? -->
+Tool 1 is called.  With parameters extracted from the text.
 
 **Step 2:**
 <!-- What happens next? What was returned from step 1? What tool is called now? -->
+Tool 2 will be called after Tool 1 returns, following the guideline in the spec.  EXCEPT if Tool 1 returns an empty string, do not continue; instead, return the specified error message.
 
 **Step 3:**
 <!-- Continue until the full interaction is complete -->
+If Tool 2 returns an empty list (failure case), stop and tell the agent to provide general styling advice for the item (as seen in the spec).  Else, continue and use Tool 3.
 
 **Final output to user:**
 <!-- What does the user actually see at the end? -->
+If Tool 3 fails, return that the LLM outfit input is missing/incomplete; else, return the generated caption from Tool 3 and the outfit suggestions from Tool 2.
