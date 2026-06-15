@@ -60,8 +60,7 @@ wardrobe = get_example_wardrobe()
 
 ## Tools
 
-List every tool your agent will use. For each tool, fill in all four fields.
-You must have at least 3 tools. The three required tools are listed — add any additional tools below them.
+List every tool that this agent will use.
 
 ### Tool 1: search_listings
 
