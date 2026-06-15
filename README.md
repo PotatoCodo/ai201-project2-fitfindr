@@ -130,4 +130,42 @@ Return a descriptive error message, not an exception or crash.
 
 ---
 
+## Planning Loop
+
+**How does your agent decide which tool to call next?**
+<!-- Describe the logic your planning loop uses. What does it look at? What conditions change its behavior? How does it know when it's done? -->
+It will use tools 1, 2, then 3 sequentially, only moving on to the next tool once the previous tool has finished.  There should also be a system prompt that says to do something different if an "error" has been returned as specified in the spec (e.g., if tool 1 returns with an empty string, tell the agent to say "There are no matches for this item :(".
+
+---
+
+## State Management
+
+**How does information from one tool get passed to the next?**
+<!-- Describe how your agent stores and accesses state within a session. What data is tracked? How is it passed between tool calls? -->
+The agent will be asked to remember it and will be asked to use remembered state as input into the next tool.
+
+---
+
+## A Complete Interaction (Step by Step)
+
+Write out what a full user interaction looks like from start to finish — tool call by tool call. Use a specific example query.
+
+**Example user query:** "I'm looking for a vintage graphic tee under $30. I mostly wear baggy jeans and chunky sneakers. What's out there and how would I style it?"
+
+**Step 1:**
+<!-- What does the agent do first? Which tool is called? With what input? -->
+Tool 1 is called.  With parameters extracted from the text.
+
+**Step 2:**
+<!-- What happens next? What was returned from step 1? What tool is called now? -->
+Tool 2 will be called after Tool 1 returns, following the guideline in the spec.  EXCEPT if Tool 1 returns an empty string, do not continue; instead, return the specified error message.
+
+**Step 3:**
+<!-- Continue until the full interaction is complete -->
+If Tool 2 returns an empty list (failure case), stop and tell the agent to provide general styling advice for the item (as seen in the spec).  Else, continue and use Tool 3.
+
+**Final output to user:**
+<!-- What does the user actually see at the end? -->
+If Tool 3 fails, return that the LLM outfit input is missing/incomplete; else, return the generated caption from Tool 3 and the outfit suggestions from Tool 2.
+
 Your implementation files go in this same directory. There's no required file structure for your agent code — organize it however makes sense for your design.
